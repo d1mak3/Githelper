@@ -25,9 +25,10 @@ if not os.path.exists(project_path + "/.git"):
 else:
     message_for_commit = input_message_to_commit()
     os.system('git add . & git commit -m "' + message_for_commit + '"')
+    git_config = open(project_path + "/.git/config")
     answer = input("Is your local repo connected to remote? (Y/n): ")
-    if answer == "N" or answer == "n":
+    if git_config.read().find("remote") == -1:
         link_to_github = input("Enter the link to github: ")
         os.system("git push --set-upstream " + link_to_github + " master")
-    elif answer == "Y" or answer == "y":
+    else:
         os.system("git push")
